@@ -11,15 +11,13 @@ git clone https://github.com/chrisb13/mkpaper.git
 ```
 Dependencies
 ============                                                                                                                         
-* python                                                                                                                             
+* python                   
 * pdflatex (optional)
 * python-docx (optional)
 
 Without pdflatex, the package still works (you can create the tex file and not compile). Requires figures to be in pdf format.
 
-To create a word doc you need python-docx (installable with `Anaconda`_)
-
-.. _Anaconda: https://www.continuum.io/downloads         
+To create a word doc you need [python-docx](https://python-docx.readthedocs.org/en/latest/) (installable with [Anaconda](https://www.continuum.io/downloads))
 
 Usage
 ============
