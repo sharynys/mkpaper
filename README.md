@@ -17,7 +17,7 @@ Usage
 See examples/example_mkpaper_pdf.py
 
 In summary, though:
-```
+```python
 import mkpaper as mp
 
 #get a list of your figures in PDF format...
