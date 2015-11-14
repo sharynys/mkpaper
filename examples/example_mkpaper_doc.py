@@ -10,12 +10,14 @@
 #
 
 """
-Example script of how to use mkpaper (pdflatex)
+Example script of how to use mkpaper (word doc)
+
+Requires python-docx package.
 
 Things to change (see init box):
     1] path to mkpaper package
-    2] path to pdf plots (pending how you cloned)
-    3] path to pdf output (pending how you cloned)
+    2] path to png plots (pending how you cloned)
+    3] path to doc output (pending how you cloned)
 """
 
 ###########################################################################
@@ -24,8 +26,8 @@ Things to change (see init box):
 path_to_mkpaper='/home/nfs/z3457920/hdrive/repos/'
 
 #IF you cloned to a repo NOT called 'mkpaper' you need to change these lines...
-path_to_pdfplots=path_to_mkpaper+'mkpaper/examples/figs/' 
-path_to_pdf=path_to_mkpaper+'mkpaper/examples/examplemkpaper/'
+path_to_pngplots=path_to_mkpaper+'mkpaper/examples/figs/' 
+path_to_doc=path_to_mkpaper+'mkpaper/examples/examplemkpaper/'
 
 ###########################################################################
 #                                INIT END                                 #
@@ -38,22 +40,20 @@ import mkpaper as mp
 import glob
 
 if __name__ == "__main__": 
-    #get a list of your figures in PDF format...
-    ifiles=sorted(glob.glob(path_to_pdfplots + '*.pdf' ))
+    #get a list of your figures in PNG format...
+    ifiles=sorted(glob.glob(path_to_pngplots + '*.png' ))
     assert(ifiles!=[]),"glob didn't find anything!"
 
     #alternatively, we could be more explicit
-    #ifile[0]=path_to_pdf+'penguin1.pdf'
-    #ifile[1]=path_to_pdf+'penguin2.pdf'
+    #ifile[0]=path_to_doc+'penguin1.png'
+    #ifile[1]=path_to_doc+'penguin2.png'
 
-    #instantiate LatexFigureDoc class:
+    #instantiate WordFigureDoc class:
     #arguments are: path/to/put/figuredocs and name of figure doc..
-    figobj=mp.LatexFigureDoc(path_to_pdf,'penguinfigs')
+    figobj=mp.WordFigureDoc(path_to_doc,'penguinfigs')
     figobj.add_figure(ifiles[0],'first penguin')
     figobj.add_figure(ifiles[1],'second penguin')
     #etc
 
     #insert the tail of the doc
-    figobj.end_tex()
-    #send build command to pdflatex, this step actually requires pdflatex on the machine
-    figobj.build_tex()
+    figobj.end_doc()

@@ -164,14 +164,16 @@ class LatexFigureDoc(object):
         :returns: @todo
         """
         _lg.info("Building pdf file... (requires pdflatex)")
-        currentdir=os.getcwd()
+
+        #turned this off as it was crashing..
+        #currentdir=os.getcwd()
         os.chdir(self.latexfol)
         pdfcommand=['pdflatex' , self.outname]
 
         FNULL = open(os.devnull, 'w')
         retcode = subprocess.call(pdfcommand, stdout=FNULL, stderr=subprocess.STDOUT)
 
-        os.chdir(currentdir)
+        #os.chdir(currentdir)
 
         if os.path.isfile(self.outname[:-3]+'pdf'):
             _lg.info("MkPaper SUCCESS, check it out: "+self.outname[:-3]+'pdf')
@@ -179,6 +181,64 @@ class LatexFigureDoc(object):
             _lg.info("MkPaper FAIL")
             _lg.error("Something went wrong with pdflatex, it hasn't made a figure doc. We won't delete the LaTeX.")
             sys.exit("Something went wrong with pdflatex, it hasn't made a figure doc. We won't delete the LaTeX.")
+
+class WordFigureDoc(object):
+    """
+    Class for creating Word Figure Doc.
+
+    Keep calling add_figure method as required.
+
+    Call end_doc method to complete document
+
+    Parameters
+    ----------
+    :wordfol: folder to put the word doc in. (Will be created if it doesn't exist.) Needs to be full path, not relative.
+    :figdoctitle: name of figure document title (default is 'mkpaperfigure')
+
+    Returns
+    -------
+    
+    Notes
+    -------
+
+    Example
+    --------
+    """
+    def __init__(self,wordfol,figdoctitle='mkpaperfigure'):
+        _lg.info("Creating word doc file in: " + wordfol)
+        self.wordfol=wordfol
+        self.figdoctitle=figdoctitle
+        self.outname=wordfol+figdoctitle+'.docx'
+        mkdir(self.wordfol)
+        from docx import Document
+
+        self.document=Document()
+        self.document.add_heading("Figure File", 0)
+        self.document.add_paragraph("This doc is a figure container")
+
+    def add_figure(self,filepath,caption):
+        """function to add figure and caption to word doc file.
+        
+        :filepath: this needs to be a pdf file!
+        :caption:  caption for said figure
+        :returns: 
+        """
+        from docx.shared import Inches
+        _lg.debug("Adding Figure: " + filepath)
+
+        self.document.add_picture(filepath,width=Inches(6.0))
+        self.document.add_paragraph(caption)
+        self.document.add_page_break()
+        
+    def end_doc(self):
+        self.document.save(self.outname)
+        if os.path.isfile(self.outname):
+            _lg.info("MkPaper SUCCESS, check it out: "+self.outname)
+        else:
+            _lg.info("MkPaper FAIL")
+            _lg.error("Something went wrong with python-docx, it hasn't made a figure doc.")
+            sys.exit("Something went wrong with python-docx, it hasn't made a figure doc.")
+
 
 if __name__ == "__main__": 
     pass

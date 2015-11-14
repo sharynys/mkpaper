@@ -11,7 +11,7 @@
 """
 This package is for making Chris' phd life easier by writing his papers for him!
 """
-__version__=.1
+__version__=.2
 #__all__=[]
 
-from .main import LatexFigureDoc
+from .main import LatexFigureDoc,WordFigureDoc
