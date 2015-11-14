@@ -10,7 +10,9 @@ Without pdflatex, the package still works (you can create the tex file and not c
 Installation
 ============                     
 
+```bash
 git clone https://github.com/chrisb13/mkpaper.git
+```
 
 Usage
 ============
