@@ -17,7 +17,7 @@ Dependencies
 
 Without pdflatex, the package still works (you can create the tex file and not compile). Requires figures to be in pdf format.
 
-To create a word doc you need [python-docx](https://python-docx.readthedocs.org/en/latest/) (installable with [Anaconda](https://www.continuum.io/downloads))
+To create a word doc you need [python-docx](https://python-docx.readthedocs.org/en/latest/) (installable with [Anaconda](https://www.continuum.io/downloads)). Inserted figures need to be in png.
 
 Usage
 ============
@@ -56,8 +56,12 @@ figobj.end_tex()
 #send build command to pdflatex, this step actually requires pdflatex on the machine
 figobj.build_tex()
 ```
+Inserted figures need to be in pdf.
+
 ## Word doc
 Requires python-docx
+
+In summary, from the example (examples/example_mkpaper_doc.py):
 ```python
 import mkpaper as mp
 
@@ -80,6 +84,7 @@ figobj.add_figure(ifiles[1],'second penguin')
 #insert the tail of the doc
 figobj.end_doc()
 ```
+Inserted figures need to be in png.
 
 Acknowledgements
 ================
