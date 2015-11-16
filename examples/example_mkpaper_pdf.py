@@ -13,15 +13,15 @@
 Example script of how to use mkpaper (pdflatex)
 
 Things to change (see init box):
-    1] path to mkpaper package
-    2] path to pdf plots (pending how you cloned)
-    3] path to pdf output (pending how you cloned)
+    1] path to mkpaper package (it's the folder CONTAINING mkpaper, e.g. should be /folder_containing_mkpaper/ NOT /folder_containing_mkpaper/mkpaper/ )
+    2] path to pdf plots  (optional: pending how you cloned)
+    3] path to pdf output (optional: pending how you cloned)
 """
 
 ###########################################################################
 #                INIT -- CHANGE me to make script work....                #
 ###########################################################################
-path_to_mkpaper='/home/nfs/z3457920/hdrive/repos/'
+path_to_mkpaper='/home/nfs/z3457920/hdrive/repos/' #note: it's the folder CONTAINING mkpaper
 
 #IF you cloned to a repo NOT called 'mkpaper' you need to change these lines...
 path_to_pdfplots=path_to_mkpaper+'mkpaper/examples/figs/' 
