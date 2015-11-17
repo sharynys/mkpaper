@@ -108,6 +108,7 @@ class LatexFigureDoc(object):
     >>> figobj.add_figure(fpath2,caption2)
     >>> figobj.add_figure(fpath3,caption3)
     >>> figobj.end_tex()
+    >>> figobj.build_tex()
 
     #Or more concretely...
     >>> import mkpaper as mp
@@ -203,6 +204,27 @@ class WordFigureDoc(object):
 
     Example
     --------
+    >>> figobj=WordFigureDoc(latexfol,figdoctitle)
+    >>> figobj.add_figure(fpath,caption)
+    >>> figobj.add_figure(fpath2,caption2,unicodeme=True)
+    >>> figobj.end_doc()
+
+    #Or more concretely...
+    >>> import mkpaper as mp
+    >>> import glob
+
+    >>> #get a list of your figures in PNG format...
+    >>> ifiles=sorted(glob.glob('/path/to/plots/' + '*.png' ))
+    >>> assert(ifiles!=[]),"glob didn't find anything!"
+
+    >>> figobj=mp.WordFigureDoc('/home/nfs/username/examplemkpaper/','testname')
+    >>> figobj.add_figure(ifiles[0],'fig1')
+    >>> figobj.add_figure(ifiles[1],'fig2')
+    >>> figobj.add_figure(ifiles[2],'fig3')
+    >>> #etc
+
+    >>> #insert the tail of the doc
+    >>> figobj.end_doc()
     """
     def __init__(self,wordfol,figdoctitle='mkpaperfigure'):
         _lg.info("Creating word doc file in: " + wordfol)
@@ -216,18 +238,31 @@ class WordFigureDoc(object):
         self.document.add_heading("Figure File", 0)
         self.document.add_paragraph("This doc is a figure container")
 
-    def add_figure(self,filepath,caption):
+    def add_figure(self,filepath,caption,unicodeme=False):
         """function to add figure and caption to word doc file.
         
         :filepath: this needs to be a pdf file!
         :caption:  caption for said figure
+        :unicodeme:  (optional) set to True if caption contains funky characters
         :returns: 
+
+        Notes
+        -------
+        Insert this at the start of your python file to have funky strings..
+
+            # coding=utf-8
+
+        Discussion:
+        http://stackoverflow.com/questions/3215168/how-to-get-charater-in-a-string-in-python
         """
         from docx.shared import Inches
         _lg.debug("Adding Figure: " + filepath)
 
         self.document.add_picture(filepath,width=Inches(6.0))
-        self.document.add_paragraph(caption)
+        if unicodeme:
+            self.document.add_paragraph(unicode(caption,'utf-8'))
+        else:
+            self.document.add_paragraph(caption)
         self.document.add_page_break()
         
     def end_doc(self):
